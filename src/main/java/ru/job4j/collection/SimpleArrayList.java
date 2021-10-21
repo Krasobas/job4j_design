@@ -1,4 +1,4 @@
-package ru.job4j.list;
+package ru.job4j.collection;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class SimpleArrayList<T> implements List<T> {
         size++;
         modCount++;
     }
-    /**
+
     @Override
     public T set(int index, T newValue) {
         Objects.checkIndex(index, container.length);
@@ -42,18 +42,18 @@ public class SimpleArrayList<T> implements List<T> {
         size--;
         modCount++;
         return removedValue;
-    } */
+    }
 
     @Override
     public T get(int index) {
         Objects.checkIndex(index, container.length);
         return container[index];
     }
-    /**
+
     @Override
     public int size() {
         return size;
-    }*/
+    }
 
     @Override
     public Iterator<T> iterator() {

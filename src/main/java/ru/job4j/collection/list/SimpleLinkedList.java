@@ -1,4 +1,4 @@
-package ru.job4j.list;
+package ru.job4j.collection.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;

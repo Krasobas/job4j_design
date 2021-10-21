@@ -1,4 +1,4 @@
-package ru.job4j.list;
+package ru.job4j.collection;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,11 +20,11 @@ public class SimpleArrayListTest {
         list.add(2);
         list.add(3);
     }
-    /**
+
     @Test
     public void whenAddThenSizeIncrease() {
         Assert.assertEquals(3, list.size());
-    }*/
+    }
 
     @Test
     public void whenAddAndGetByCorrectIndex() {
@@ -35,7 +35,7 @@ public class SimpleArrayListTest {
     public void whenAddAndGetByIncorrectIndexThenGetException() {
         list.get(5);
     }
-    /**
+
     @Test
     public void whenRemoveThenGetValueAndSizeDecrease() {
         Assert.assertEquals(3, list.size());
@@ -74,7 +74,7 @@ public class SimpleArrayListTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void whenSetByIncorrectIndexThenGetException() {
         list.set(5, 22);
-    } */
+    }
 
     @Test
     public void whenGetIteratorFromEmptyListThenHasNextReturnFalse() {
