@@ -13,7 +13,7 @@ public class SimpleLinkedList<E> implements List<E> {
 
     private void linkLast(E element) {
         Node<E> l = last;
-        Node<E> newNode = new Node<>(last, element, null);
+        Node<E> newNode = new Node<>(element, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -41,21 +41,6 @@ public class SimpleLinkedList<E> implements List<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
         return node(index).item;
-    }
-
-    @Override
-    public E set(int index, E newValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public E remove(int index) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 
     @Override
@@ -88,12 +73,10 @@ public class SimpleLinkedList<E> implements List<E> {
     private static class Node<E> {
         E item;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 }

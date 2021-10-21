@@ -22,21 +22,6 @@ public class SimpleLinkedListTest {
     }
 
     @Test
-    public void whenAddThenSizeIncrease() {
-        Assert.assertEquals(3, list.size());
-    }
-
-    @Test
-    public void whenAddNullThenMustBeSameBehavior() {
-        list = new SimpleLinkedList<>();
-        list.add(null);
-        list.add(null);
-        Assert.assertEquals(2, list.size());
-        Assert.assertNull(list.get(0));
-        Assert.assertNull(list.get(1));
-    }
-
-    @Test
     public void whenAddAndGet() {
         List<Integer> list = new SimpleLinkedList<>();
         list.add(1);

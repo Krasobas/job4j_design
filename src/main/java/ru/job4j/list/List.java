@@ -1,9 +1,6 @@
 package ru.job4j.list;
 
-public interface List<T> extends Iterable<T> {
-    void add(T value);
-    T set(int index, T newValue);
-    T remove(int index);
-    T get(int index);
-    int size();
+public interface List<E> extends Iterable<E> {
+    void add(E value);
+    E get(int index);
 }
