@@ -1,5 +1,6 @@
 package ru.job4j.collection;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
@@ -11,9 +12,24 @@ import static org.junit.Assert.assertThat;
 
 public class ForwardLinkedTest {
 
+    ForwardLinked<Integer> linked;
+
+    @Before
+    public void setUp() {
+        linked = new ForwardLinked<>();
+    }
+
+    @Test
+    public void whenAddFirstAfterAdd() {
+        linked.add(1);
+        linked.addFirst(2);
+        Iterator<Integer> it = linked.iterator();
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(1));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenDeleteFirst() {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.add(1);
         linked.deleteFirst();
         linked.iterator().next();
@@ -21,13 +37,11 @@ public class ForwardLinkedTest {
 
     @Test(expected = NoSuchElementException.class)
     public void whenDeleteEmptyLinked() {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.deleteFirst();
     }
 
     @Test
     public void whenMultiDelete() {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.add(1);
         linked.add(2);
         assertThat(linked.deleteFirst(), is(1));
@@ -37,7 +51,6 @@ public class ForwardLinkedTest {
 
     @Test(expected = ConcurrentModificationException.class)
     public void whenDeleteAfterIteratorThenCME() {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.add(1);
         linked.add(2);
         Iterator<Integer> it = linked.iterator();
@@ -48,7 +61,6 @@ public class ForwardLinkedTest {
 
     @Test(expected = ConcurrentModificationException.class)
     public void whenAddAfterIteratorThenCME() {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.add(1);
         linked.add(2);
         Iterator<Integer> it = linked.iterator();
