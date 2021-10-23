@@ -9,15 +9,10 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 public class SimpleStackTest {
-    SimpleStack<Integer> linked;
-
-    @Before
-    public void setUp() {
-        linked = new SimpleStack<>();
-    }
 
     @Test
     public void whenMultiPushAndPop() {
+        SimpleStack<Integer> linked = new SimpleStack<>();
         linked.push(1);
         linked.push(2);
         linked.push(3);
@@ -26,12 +21,14 @@ public class SimpleStackTest {
 
     @Test
     public void whenPushNullAndPop() {
+        SimpleStack<Integer> linked = new SimpleStack<>();
         linked.push(null);
         assertNull(linked.pop());
     }
 
     @Test (expected = NoSuchElementException.class)
     public void whenPopFromEmptyThenNSEE() {
+        SimpleStack<Integer> linked = new SimpleStack<>();
         assertNull(linked.pop());
     }
 
