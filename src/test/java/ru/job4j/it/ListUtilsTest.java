@@ -23,6 +23,12 @@ public class ListUtilsTest {
         assertThat(input, is(List.of(1, 4, 2, 3)));
     }
 
+    @Test
+    public void whenAddBeforeAndIndexZero() {
+        ListUtils.addBefore(input, 0, 4);
+        assertThat(input, is(List.of(4, 1, 2, 3)));
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void whenAddBeforeWithInvalidIndex() {
         ListUtils.addBefore(input, 3, 4);
@@ -65,8 +71,9 @@ public class ListUtilsTest {
 
     @Test
     public void whenRemoveAllAndMatch() {
-        ListUtils.removeAll(input, List.of(1, 2));
-        assertThat(input, is(List.of(3)));
+        input = new ArrayList<>(List.of(1, 3, 4, 1, 5, 0, 4));
+        ListUtils.removeAll(input, List.of(0, 1, 4));
+        assertThat(input, is(List.of(3, 5)));
     }
 
     @Test
