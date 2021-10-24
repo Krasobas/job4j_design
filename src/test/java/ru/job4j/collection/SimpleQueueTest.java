@@ -1,6 +1,6 @@
 package ru.job4j.collection;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
@@ -41,6 +41,7 @@ public class SimpleQueueTest {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
         queue.poll();
     }
+
     @Test
     public void whenPushPushPollAndPush() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
@@ -49,5 +50,11 @@ public class SimpleQueueTest {
         queue.poll();
         queue.push(3);
         assertThat(queue.poll(), is(2));
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void whenPollFromEmpty() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        int rsl = queue.poll();
     }
 }
