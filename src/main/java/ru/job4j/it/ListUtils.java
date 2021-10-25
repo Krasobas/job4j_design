@@ -38,16 +38,13 @@ public class ListUtils {
             ListIterator<T> src = list.listIterator();
             ListIterator<T> elem = elements.listIterator();
             T temp = elem.next();
-            while (true) {
-                if (src.nextIndex() == list.size() && elem.hasNext()) {
+            while (src.hasNext()) {
+                if (temp == src.next()) {
+                    src.remove();
+                }
+                if (!src.hasNext() && elem.hasNext()) {
                     src = list.listIterator();
                     temp = elem.next();
-                }
-                if (src.nextIndex() == list.size() && elem.nextIndex() == elements.size()) {
-                    break;
-                }
-                if (src.hasNext() && temp == src.next()) {
-                    src.remove();
                 }
             }
         }
