@@ -85,18 +85,18 @@ public class ListUtilsTest {
         assertThat(input, is(List.of(1, 2, 3)));
     }
 
-//    @Test
-//    public void whenRemoveAllAndInputEmpty() {
-//        List<Integer> input = new ArrayList<>();
-//        ListUtils.removeAll(input, List.of(4, 5));
-//        assertThat(input, is(List.of()));
-//    }
-//
-//    @Test
-//    public void whenRemoveAllAndArgumentEmpty() {
-//        List<Integer> input = new ArrayList<>(List.of(1, 3, 4, 1, 5, 0, 4));
-//        ListUtils.removeAll(input, List.of());
-//        assertThat(input, is(List.of(1, 3, 4, 1, 5, 0, 4)));
-//    }
+    @Test
+    public void whenRemoveAllAndInputEmpty() {
+        List<Integer> input = new ArrayList<>();
+        ListUtils.removeAll(input, List.of(4, 5));
+        assertThat(input, is(List.of()));
+    }
+
+    @Test
+    public void whenRemoveAllAndArgumentEmpty() {
+        List<Integer> input = new ArrayList<>(List.of(1, 3, 4, 1, 5, 0, 4));
+        ListUtils.removeAll(input, List.of());
+        assertThat(input, is(List.of(1, 3, 4, 1, 5, 0, 4)));
+    }
 
 }
