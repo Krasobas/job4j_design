@@ -36,15 +36,15 @@ public class ListUtils {
     public static <T> void removeAll(List<T> list, List<T> elements) {
         if (list.size() > 0 && elements.size() > 0) {
             ListIterator<T> src = list.listIterator();
-            ListIterator<T> elem = elements.listIterator();
-            T temp = elem.next();
+            int index = 0;
+            T temp = elements.get(index++);
             while (src.hasNext()) {
                 if (temp == src.next()) {
                     src.remove();
                 }
-                if (!src.hasNext() && elem.hasNext()) {
+                if (!src.hasNext() && index < elements.size()) {
                     src = list.listIterator();
-                    temp = elem.next();
+                    temp = elements.get(index++);
                 }
             }
         }
