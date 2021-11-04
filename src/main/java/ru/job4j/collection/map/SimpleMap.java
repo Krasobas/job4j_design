@@ -18,16 +18,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        int hash = hash(key.hashCode());
-        int index;
-        boolean rsl;
-        if (count == capacity * LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
-        index = indexFor(hash);
-        rsl = table[index] == null;
+        int hash = hash(key.hashCode());
+        int index = indexFor(hash);
+        boolean rsl = table[index] == null;
         if (rsl) {
-            table[index] = new MapEntry<>(hash, key, value);
+            table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
         }
@@ -47,7 +45,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (MapEntry<K, V> entry : table) {
             if (entry != null) {
-                int index = indexFor(entry.hash);
+                int index = indexFor(hash(entry.key.hashCode()));
                 if (newTable[index] == null) {
                     newTable[index] = entry;
                 }
@@ -58,14 +56,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
+        V rsl = null;
         int index = indexFor(hash(key.hashCode()));
-        return table[index] == null ? null : table[index].value;
+        if (table[index] != null && table[index].key.equals(key)) {
+            rsl = table[index].value;
+        }
+        return rsl;
     }
 
     @Override
     public boolean remove(K key) {
         int index = indexFor(hash(key.hashCode()));
-        boolean rsl = table[index] != null;
+        boolean rsl = table[index] != null && table[index].key.equals(key);
         if (rsl) {
             table[index] = null;
             count--;
@@ -108,13 +110,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private static class MapEntry<K, V> {
-
-        int hash;
         K key;
         V value;
 
-        public MapEntry(int hash, K key, V value) {
-            this.hash = hash;
+        public MapEntry(K key, V value) {
             this.key = key;
             this.value = value;
         }
