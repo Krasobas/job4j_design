@@ -20,6 +20,7 @@ public class Analizy {
                         cur = lines.poll();
                     }
                     result.append(cur.substring(4));
+                    result.append(";");
                     result.append(System.lineSeparator());
                 }
             }
@@ -31,9 +32,5 @@ public class Analizy {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new Analizy().unavailable("./data/server.log", "./data/server_unavailable.log");
     }
 }
