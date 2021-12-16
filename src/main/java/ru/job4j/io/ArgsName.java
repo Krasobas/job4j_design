@@ -2,27 +2,39 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
 
     public String get(String key) {
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("Illegal key!");
+        }
         return values.get(key);
     }
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("No any argument was entered!");
         }
-        for (String str : args) {
-            String[] temp = str.substring(1).split("=");
-            if (temp.length != 2) {
-                throw new IllegalArgumentException();
-            }
+        for (String arg : args) {
+            String[] temp = validation(arg);
             values.put(temp[0], temp[1]);
         }
 
+    }
+
+    private String[] validation(String arg) {
+        if (!Pattern.matches("-[a-zA-Z]+=.+", arg)) {
+            throw new IllegalArgumentException("Illegal command was entered! Use this template: -key=value");
+        }
+        String[] temp = arg.substring(1).split("=");
+        if (temp.length != 2) {
+            throw new IllegalArgumentException("Illegal command was entered! Use = only to separate key and value");
+        }
+        return temp;
     }
 
     public static ArgsName of(String[] args) {

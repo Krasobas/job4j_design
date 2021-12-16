@@ -29,4 +29,20 @@ public class ArgsNameTest {
     public void whenWrongSomeArgument() {
         ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx="});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenArgumentDoesNotMatchTemplate() {
+        ArgsName jvm = ArgsName.of(new String[] {"enconding-UTF-8", "-Xmx0=99"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenArgumentHasTwoSeparators() {
+        ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF=8", "-Xmx=99"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenGetWithIllegalKey() {
+        ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx=99"});
+        jvm.get("key");
+    }
 }
