@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,9 @@ public class DuplicatesVisitorTest {
         DuplicatesVisitor visitor = new DuplicatesVisitor();
         Files.walkFileTree(folder.getRoot().toPath(), visitor);
         Map<FileProperty, List<Path>> duplicates = visitor.getDuplicates();
-        List<Path> expected = List.of(secondChild.toPath(), secondChildDuplicate.toPath());
+        List<Path> expected = new ArrayList<>();
+        expected.add(secondChild.toPath());
+        expected.add(secondChildDuplicate.toPath());
         assertThat(visitor.getDuplicates().values().size(), is(1));
         assertTrue(duplicates.containsValue(expected));
     }
