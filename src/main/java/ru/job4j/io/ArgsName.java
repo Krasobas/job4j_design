@@ -8,11 +8,15 @@ public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
 
-    public String get(String key) {
-        if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("Illegal key!");
+    private String[] validation(String arg) {
+        if (!Pattern.matches("-[a-zA-Z]+=.+", arg)) {
+            throw new IllegalArgumentException("Illegal command was entered! Use this template: -key=value");
         }
-        return values.get(key);
+        String[] temp = arg.substring(1).split("=");
+        if (temp.length != 2) {
+            throw new IllegalArgumentException("Illegal command was entered! Use = only to separate key and value");
+        }
+        return temp;
     }
 
     private void parse(String[] args) {
@@ -26,15 +30,11 @@ public class ArgsName {
 
     }
 
-    private String[] validation(String arg) {
-        if (!Pattern.matches("-[a-zA-Z]+=.+", arg)) {
-            throw new IllegalArgumentException("Illegal command was entered! Use this template: -key=value");
+    public String get(String key) {
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("Illegal key!");
         }
-        String[] temp = arg.substring(1).split("=");
-        if (temp.length != 2) {
-            throw new IllegalArgumentException("Illegal command was entered! Use = only to separate key and value");
-        }
-        return temp;
+        return values.get(key);
     }
 
     public static ArgsName of(String[] args) {
