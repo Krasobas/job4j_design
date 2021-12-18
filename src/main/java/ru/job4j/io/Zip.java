@@ -2,16 +2,31 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
-    private static String directory;
-    private static ArgsName validation(String[] args) {
+    private ArgsName commands;
+    private String directory;
+
+    public Zip(String[] args) {
+        commands = validation(args);
+        directory = Paths.get(commands.get("d")).getFileName().toString();
+    }
+
+    public void run() {
+        try {
+            List<Path> files = Search.search(Paths.get(commands.get("d")),
+                    f -> !f.toFile().getName().endsWith(commands.get("e")));
+            packFiles(files, Paths.get(commands.get("o")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ArgsName validation(String[] args) {
         if (args.length != 3) {
             throw new IllegalArgumentException("Expected 3 arguments but you entered " + args.length);
         }
@@ -26,12 +41,12 @@ public class Zip {
         return commands;
     }
 
-    private static String cutPath(String path) {
+    private String cutPath(String path) {
         int start = path.indexOf(directory);
         return path.substring(start);
     }
 
-    public static void packFiles(List<Path> sources, Path target) {
+    private void packFiles(List<Path> sources, Path target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target.toFile())))) {
             for (Path source : sources) {
                 packSingleFile(source.toFile(), zip);
@@ -41,7 +56,7 @@ public class Zip {
         }
     }
 
-    public static void packSingleFile(File source, ZipOutputStream zip) {
+    private void packSingleFile(File source, ZipOutputStream zip) {
         try {
             zip.putNextEntry(new ZipEntry(cutPath(source.getPath())));
             try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
@@ -52,7 +67,6 @@ public class Zip {
             e.printStackTrace();
         }
     }
-
     /**
     java -jar pack.jar -d=/Users/vasilijkrasov/Desktop/projects/job4j_design -e=class -o=project.zip
 
@@ -61,16 +75,8 @@ public class Zip {
     -e - exclude - исключить файлы с расширением class.
     -o - output - во что мы архивируем.
      */
-
     public static void main(String[] args) {
-        ArgsName commands = validation(args);
-        directory = Paths.get(commands.get("d")).getFileName().toString();
-        try {
-            List<Path> files = Search.search(Paths.get(commands.get("d")),
-                    f -> !f.toFile().getName().endsWith(commands.get("e")));
-            packFiles(files, Paths.get(commands.get("o")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Zip zip = new Zip(args);
+        zip.run();
     }
 }
