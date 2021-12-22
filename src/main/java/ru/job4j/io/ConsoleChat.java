@@ -66,7 +66,6 @@ public class ConsoleChat {
             e.printStackTrace();
         }
         saveLog(log);
-        log.forEach(System.out::println);
     }
     /**
      * Метод читает фразы из файла @value botAnswers
