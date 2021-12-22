@@ -46,25 +46,27 @@ public class ConsoleChat {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8))) {
             String userInput = "";
             boolean silence = false;
-            while (!userInput.equals(OUT)) {
+            while (!OUT.equals(userInput)) {
                 userInput = in.readLine();
                 log.add(userInput);
-                if (userInput.equals(STOP) || userInput.equals(OUT)) {
+                if (STOP.equals(userInput) || OUT.equals(userInput)) {
                     silence = true;
                 }
-                if (userInput.equals(CONTINUE)) {
+                if (CONTINUE.equals(userInput)) {
                     silence = false;
                 }
                 if (!silence) {
                     double randomIndex = Math.random() * answers.size();
                     String answer = answers.get((int) randomIndex);
                     log.add(answer);
+                    System.out.println(answer);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         saveLog(log);
+        log.forEach(System.out::println);
     }
     /**
      * Метод читает фразы из файла @value botAnswers

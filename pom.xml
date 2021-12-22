@@ -83,10 +83,10 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>Zip</finalName>
+              <finalName>ConsoleChat</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ru.job4j.io.Zip</mainClass>
+                  <mainClass>ru.job4j.io.ConsoleChat</mainClass>
                 </transformer>
               </transformers>
             </configuration>
