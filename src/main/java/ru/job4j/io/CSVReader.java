@@ -26,7 +26,7 @@ public class CSVReader {
             throw new IllegalArgumentException("The source file doesn't exist!");
         }
         String out = argsName.get("out");
-        if (!out.equals("stdout") && !Pattern.matches(".+\\.[a-z]+", out)) {
+        if (!"stdout".equals(out) && !Pattern.matches(".+\\.[a-z]+", out)) {
             throw new IllegalArgumentException("The -out key should be stdout or a path to a file!");
         }
         return argsName;
@@ -83,7 +83,7 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (argsName.get("out").equals("stdout")) {
+        if ("stdout".equals(argsName.get("out"))) {
             System.out.print(rsl);
         } else {
             try (PrintWriter writer = new PrintWriter(new FileWriter(argsName.get("out")))) {
