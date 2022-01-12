@@ -3,6 +3,7 @@ package ru.job4j.io;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class EchoServer {
     private static String readMessage(String message) {
@@ -18,8 +19,13 @@ public class EchoServer {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String str = in.readLine();
-                    if ("Bye".equals(readMessage(str))) {
+                    String message = readMessage(str);
+                    if ("Exit".equals(message)) {
                         server.close();
+                    } else if ("Hello".equals(message)) {
+                        out.write("Hello, dear friend.".getBytes());
+                    } else {
+                        out.write(message.getBytes());
                     }
                     while (str != null && !str.isEmpty()) {
                         System.out.println(str);
