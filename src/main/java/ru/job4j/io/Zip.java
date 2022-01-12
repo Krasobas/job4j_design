@@ -68,7 +68,7 @@ public class Zip {
         }
     }
     /**
-    java -jar pack.jar -d=/Users/vasilijkrasov/Desktop/projects/job4j_design -e=class -o=project.zip
+    java -jar pack.jar -d=/projects/job4j_design -e=class -o=project.zip
 
     java -jar pack.jar - Это собранный jar.
     -d - directory - которую мы хотим архивировать.
