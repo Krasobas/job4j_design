@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class EchoServer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
 
     private static String readMessage(String message) {
         int start = message.indexOf("msg=");
