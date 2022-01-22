@@ -67,12 +67,14 @@ public class Student {
                 "John Smith",
                 new String[] {"Java programming", "Algorithms", "Design patterns"},
                 new Contact(123, "88002600"));
-        final Gson gson = new GsonBuilder().create();
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String studentJSON = gson.toJson(origin);
         System.out.println(studentJSON);
         Student copy = gson.fromJson(studentJSON, Student.class);
         System.out.println(copy.equals(origin));
-
+        String manualJSON = "{\"scholarship\":true,\"id\":12345,\"name\":\"John Smith\",\"courses\":[\"Java programming\", \"Algorithms\", \"Design patterns\"],\"contact\":{\"zipCode\":123,\"phone\":\"88002600\"}}";
+        copy = gson.fromJson(manualJSON, Student.class);
+        System.out.println(copy.equals(origin));
 
     }
 }

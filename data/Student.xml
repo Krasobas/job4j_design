@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<student scholarship="true" id="12345" name="John Smith">
+    <courses>
+        <course>Java programming</course>
+        <course>Algorithms</course>
+        <course>Design patterns</course>
+    </courses>
+    <contact zipCode="123" phone="88002600"/>
+</student>
