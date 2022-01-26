@@ -6,11 +6,21 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "contact")
 public class Contact implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(Contact.class.getName());
     private static final long serialVersionUID = 1L;
-    private final int zipCode;
-    private final String phone;
+
+    @XmlAttribute
+    private int zipCode;
+
+    @XmlAttribute
+    private String phone;
+
+    public Contact() { }
 
     public Contact(int zipCode, String phone) {
         this.zipCode = zipCode;
