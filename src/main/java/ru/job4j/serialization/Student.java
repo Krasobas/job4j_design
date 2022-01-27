@@ -8,6 +8,9 @@ import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -44,6 +47,26 @@ public class Student {
         this.name = name;
         this.courses = courses;
         this.contact = contact;
+    }
+
+    public boolean isScholarship() {
+        return scholarship;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String[] getCourses() {
+        return courses;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     @Override
@@ -96,6 +119,7 @@ public class Student {
         /**
          * JSON serialization with GSON
          */
+        System.out.println("JSON serialization with GSON");
         final Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String studentJSON = gson.toJson(origin);
         System.out.println(studentJSON);
@@ -107,6 +131,7 @@ public class Student {
         /**
          * XML serialization with JAXB
          */
+        System.out.println("XML serialization with JAXB");
         JAXBContext context = JAXBContext.newInstance(Student.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -125,6 +150,26 @@ public class Student {
             copy = (Student) unmarshaller.unmarshal(reader);
             System.out.println(copy.equals(origin));
         }
+        /**
+         * Serialization with JSON-Java
+         */
+        System.out.println("Serialization with JSON-Java");
+        JSONObject jsonContact = new JSONObject("{\"zipCode\":123, \"phone\":\"88002600\"}");
+        JSONArray jsonCourses = new JSONArray("[\"Java programming\", \"Algorithms\", \"Design patterns\"]");
+        JSONObject jsonStudent = new JSONObject();
+        jsonStudent.put("scholarship", origin.isScholarship());
+        jsonStudent.put("id", origin.getId());
+        jsonStudent.put("name", origin.getName());
+        jsonStudent.put("courses", jsonCourses);
+        jsonStudent.put("contact", jsonContact);
+        System.out.println(jsonStudent);
+        copy = gson.fromJson(jsonStudent.toString(), Student.class);
+        System.out.println(copy.equals(origin));
+        JSONObject jsonCopy = new JSONObject(origin);
+        System.out.println(jsonCopy);
+        copy = gson.fromJson(jsonCopy.toString(), Student.class);
+        System.out.println(copy.equals(origin));
+
     }
 }
 
