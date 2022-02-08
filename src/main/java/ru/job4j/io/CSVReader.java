@@ -6,6 +6,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * Comma Separated Value Reader
+ * In fact the programme uses a delimiter entered by user.
+ */
 public class CSVReader {
     private ArgsName argsName;
 

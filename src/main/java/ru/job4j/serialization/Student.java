@@ -155,12 +155,11 @@ public class Student {
          */
         System.out.println("Serialization with JSON-Java");
         JSONObject jsonContact = new JSONObject("{\"zipCode\":123, \"phone\":\"88002600\"}");
-        JSONArray jsonCourses = new JSONArray("[\"Java programming\", \"Algorithms\", \"Design patterns\"]");
         JSONObject jsonStudent = new JSONObject();
         jsonStudent.put("scholarship", origin.isScholarship());
         jsonStudent.put("id", origin.getId());
         jsonStudent.put("name", origin.getName());
-        jsonStudent.put("courses", jsonCourses);
+        jsonStudent.put("courses", new JSONArray(origin.getCourses()));
         jsonStudent.put("contact", jsonContact);
         System.out.println(jsonStudent);
         copy = gson.fromJson(jsonStudent.toString(), Student.class);
