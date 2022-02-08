@@ -65,7 +65,10 @@ public class Find {
         } else if ("regex".equals(argsName.get("t"))) {
             condition = p -> Pattern.matches(name, p.toFile().getName());
         } else if ("mask".equals(argsName.get("t"))) {
-            condition = p -> Pattern.matches(name.replaceAll("\\*", ".*"), p.toFile().getName());
+            String mask = name.replaceAll("\\.", "\\\\.")
+                              .replaceAll("\\?", ".")
+                              .replaceAll("\\*", ".*");
+            condition = p -> Pattern.matches(mask, p.toFile().getName());
         }
         return condition;
     }
