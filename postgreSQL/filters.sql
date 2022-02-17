@@ -33,7 +33,7 @@ inner join type as t
 on p.type_id = t.id
 where p.name like '%мороженое%' or p.name like '%Мороженое%';
 
-select p.name as product, p.expired_date as was_expired, p.expired_date - now() as days_ago
+select p.name as product, p.expired_date as was_expired, abs(date_part('day', p.expired_date - now())) as days_ago
 from product as p
 where p.expired_date < now();
 
