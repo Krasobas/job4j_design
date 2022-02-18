@@ -2,6 +2,7 @@ create table type(
 	id serial primary key, 
 	name varchar(255)
 );
+
 create table product(
 	id serial primary key, 
 	name varchar(255), 
@@ -72,5 +73,3 @@ from product as p
 inner join type as t
 on p.type_id = t.id
 order by t.name asc;
-
-
