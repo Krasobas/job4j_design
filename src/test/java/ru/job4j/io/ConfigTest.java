@@ -11,7 +11,6 @@ public class ConfigTest {
     public void whenPairWithoutComment() {
         String path = "./data/pair_without_comment.properties";
         Config config = new Config(path);
-        config.load();
         assertThat(config.value("name"), is("Vasiliy Krasov"));
         assertThat(config.value("surname"), is(Matchers.nullValue()));
     }
@@ -20,7 +19,6 @@ public class ConfigTest {
     public void whenPairWitCommentAndEmptyLines() {
         String path = "./data/pair_with_comment_and_empty_lines.properties";
         Config config = new Config(path);
-        config.load();
         assertThat(config.value("#Comment"), is(Matchers.nullValue()));
         assertThat(config.value("name"), is("Vasiliy"));
         assertThat(config.value("surname"), is("Krasov"));
@@ -29,14 +27,12 @@ public class ConfigTest {
     @Test (expected = IllegalArgumentException.class)
     public void whenNoKeyContractInfraction() {
         String path = "./data/no_key_contract_infraction.properties";
-        Config config = new Config(path);
-        config.load();
+        new Config(path);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void whenNoSeparatorContractInfraction() {
         String path = "./data/no_separator_contract_infraction.properties";
-        Config config = new Config(path);
-        config.load();
+        new Config(path);
     }
 }

@@ -10,16 +10,16 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class Config {
-
-    private final String path;
+    private String path;
     private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
+        load();
     }
 
-    public void load() {
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+    private void load() {
+        try (BufferedReader read = new BufferedReader(new FileReader(path))) {
             List<String> lines = read.lines()
                     .filter(s -> !s.isEmpty() && !s.startsWith("#"))
                     .collect(Collectors.toList());
@@ -32,20 +32,20 @@ public class Config {
                     .map(s -> s.split("="))
                     .filter(array -> array.length == 2)
                     .collect(Collectors.toMap(k -> k[0], v -> v[1]));
-            this.values.putAll(map);
+            values.putAll(map);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String value(String key) {
-        return this.values.get(key);
+        return values.get(key);
     }
 
     @Override
     public String toString() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(path))) {
             read.lines().forEach(out::add);
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,5 +56,4 @@ public class Config {
     public static void main(String[] args) {
         System.out.println(new Config("app.properties"));
     }
-
 }
