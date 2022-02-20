@@ -115,20 +115,22 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        var properties = new Properties();
-        properties.load(Files.newBufferedReader(Path.of("app.properties")));
-        var app = new TableEditor(properties);
-        String table = "test_table";
-        app.createTable(table);
-        System.out.println(app.getTableScheme(table));
-        app.addColumn(table, "name", "varchar(255)");
-        System.out.println(app.getTableScheme(table));
-        app.renameColumn(table, "name", "fname");
-        app.addColumn(table, "lname", "varchar(255)");
-        System.out.println(app.getTableScheme(table));
-        app.dropColumn(table, "lname");
-        System.out.println(app.getTableScheme(table));
-        app.dropTable(table);
-        app.close();
+        try (var reader = Files.newBufferedReader(Path.of("app.properties"))) {
+            var properties = new Properties();
+            properties.load(reader);
+            try (var app = new TableEditor(properties)) {
+                String table = "test_table";
+                app.createTable(table);
+                System.out.println(app.getTableScheme(table));
+                app.addColumn(table, "name", "varchar(255)");
+                System.out.println(app.getTableScheme(table));
+                app.renameColumn(table, "name", "fname");
+                app.addColumn(table, "lname", "varchar(255)");
+                System.out.println(app.getTableScheme(table));
+                app.dropColumn(table, "lname");
+                System.out.println(app.getTableScheme(table));
+                app.dropTable(table);
+            }
+        }
     }
 }
