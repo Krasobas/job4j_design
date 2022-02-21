@@ -48,20 +48,22 @@ public class ImportDB implements AutoCloseable {
         }
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             users = rd.lines()
                       .filter(s -> !s.isEmpty())
                       .map(s -> s.split(";"))
-                      .filter(args -> args.length == 2)
+                      .filter(args -> args.length == 2 && !args[0].isEmpty() && !args[1].isEmpty())
                       .map(args -> new User(args[0], args[1]))
                       .collect(Collectors.toCollection(ArrayList::new));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return users;
     }
 
-    public void save(List<User> users) throws SQLException {
+    public void save(List<User> users) {
         initConnection();
         createTable();
         for (User user : users) {
@@ -69,6 +71,8 @@ public class ImportDB implements AutoCloseable {
                 ps.setString(1, user.name);
                 ps.setString(2, user.email);
                 ps.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         showTable();
