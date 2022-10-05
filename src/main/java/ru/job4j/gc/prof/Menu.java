@@ -19,13 +19,11 @@ public class Menu {
 
     public static final String ARRAY_INFO = "Массив создан и заполнен случайными значениями от 1 до ";
 
-    public static final String MENU = """
-                Введите 1 для создание массива.
-                Введите 2, чтобы начать сортировку слиянием.
-                Введите 3, чтобы начать сортировку пузырьком.
-                Введите 4,чтобы начать сортировку вставками.
-                Введите любое другое число для выхода.
-            """;
+    public static final String MENU = "Введите 1 для создание массива." + System.lineSeparator()
+            + "Введите 2, чтобы начать сортировку слиянием." + System.lineSeparator()
+            + "Введите 3, чтобы начать сортировку пузырьком." + System.lineSeparator()
+            + "Введите 4,чтобы начать сортировку вставками." + System.lineSeparator()
+            + "Введите любое другое число для выхода." + System.lineSeparator();
 
     public static void main(String[] args) {
         Data store = new RandomArray(new Random());
