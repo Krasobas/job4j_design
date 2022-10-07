@@ -55,11 +55,6 @@ public class CommentGenerator implements Generate {
                     .append(phrases.get(ints.get(2)));
             comments.add((new Comment(builder.toString(), userGenerator.randomUser())));
             builder.setLength(0);
-//            String comment = phrases.get(ints.get(0)) + SEPARATOR
-//                    + phrases.get(ints.get(1)) + SEPARATOR
-//                    + phrases.get(ints.get(2));
-//            comments.add(new Comment(comment,
-//                    userGenerator.randomUser()));
         }
     }
 }

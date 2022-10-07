@@ -37,10 +37,6 @@ public class UserGenerator implements Generate {
                     .append(patrons.get(random.nextInt(patrons.size())));
             users.add(new User(builder.toString()));
             builder.setLength(0);
-//            users.add(new User(
-//                    surnames.get(random.nextInt(surnames.size())) + SEPARATOR
-//                            + names.get(random.nextInt(names.size())) + SEPARATOR
-//                            + patrons.get(random.nextInt(patrons.size()))));
         }
     }
 
