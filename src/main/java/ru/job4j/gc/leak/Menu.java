@@ -44,11 +44,9 @@ public class Menu {
             if (ADD_POST == userChoice) {
                 System.out.println(TEXT_OF_POST);
                 String text = scanner.nextLine();
-                //условие на пустоту, перед генерацией
                 if (UserGenerator.getUsers().isEmpty()) {
                     userGenerator.generate();
                 }
-                //условие на пустоту, перед генерацией
                 if (CommentGenerator.getComments().isEmpty()) {
                     commentGenerator.generate();
                 }
@@ -75,23 +73,12 @@ public class Menu {
 
     private static void createPost(CommentGenerator commentGenerator,
                                    UserGenerator userGenerator, PostStore postStore, String text) {
-        //условие на пустоту, перед генерацией
         if (UserGenerator.getUsers().isEmpty()) {
             userGenerator.generate();
         }
-        //условие на пустоту, перед генерацией
         if (CommentGenerator.getComments().isEmpty()) {
             commentGenerator.generate();
         }
         postStore.add(new Post(text, CommentGenerator.getComments()));
     }
 }
-//- запускаю программу и жду 30 секунд;
-//
-//        - создаю 100 постов, снова жду 30 секунд;
-//
-//        - удаляю все посты;
-//
-//        - через 30 секунд создаю 100 постов и жду минуту.
-//
-//        Общая работа программы  – 2,5 минуты.
