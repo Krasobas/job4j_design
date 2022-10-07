@@ -10,9 +10,4 @@ public class Comment {
         this.text = text;
         this.user = user;
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
