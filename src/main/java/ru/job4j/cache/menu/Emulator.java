@@ -61,7 +61,7 @@ public class Emulator {
                 if (cache != null) {
                     System.out.println(FILE_NAME);
                     String path = scanner.nextLine();
-                    cache.put(path, "");
+                    cache.put(path, cache.load(path));
                 } else {
                     System.out.println(NO_DIRECTORY);
                 }
@@ -76,7 +76,6 @@ public class Emulator {
                 } else {
                     System.out.println(NO_DIRECTORY);
                 }
-
             } else {
                 run = false;
                 System.out.println(EXIT);

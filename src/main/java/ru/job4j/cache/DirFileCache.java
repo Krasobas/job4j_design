@@ -7,6 +7,8 @@ import java.util.StringJoiner;
 
 public class DirFileCache extends AbstractCache<String, String> {
     public static final String ERROR = "Ошибка: файл не найден";
+    public static final String LOADING = "Загрузка файла";
+
 
     private final String cachingDir;
 
@@ -15,18 +17,19 @@ public class DirFileCache extends AbstractCache<String, String> {
     }
 
     @Override
-    protected String load(String key) {
-        StringJoiner joiner = new StringJoiner(System.lineSeparator());
+    public String load(String key) {
+        String rsl = "";
         try {
             Path path = Path.of(cachingDir, key);
             if (Files.exists(path)) {
-                Files.lines(path).forEach(joiner::add);
+                System.out.println(LOADING);
+                rsl = Files.readString(Path.of(cachingDir, key));
             } else {
                 System.out.println(ERROR);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return joiner.toString();
+        return rsl;
     }
 }
