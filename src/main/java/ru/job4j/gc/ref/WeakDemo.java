@@ -27,7 +27,6 @@ public class WeakDemo {
         System.gc();
         TimeUnit.SECONDS.sleep(3);
         System.out.println(weak.get());
-
     }
 
     private static void example2() throws InterruptedException {
