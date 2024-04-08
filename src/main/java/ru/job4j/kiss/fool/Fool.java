@@ -1,6 +1,5 @@
 package ru.job4j.kiss.fool;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.NoSuchElementException;
