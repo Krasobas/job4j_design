@@ -4,6 +4,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface Output {
-    void append(List<String> data);
-    String print();
+    String print(List<Map<String, String>> data);
 }

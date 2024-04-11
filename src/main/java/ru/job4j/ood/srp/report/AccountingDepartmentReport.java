@@ -8,8 +8,7 @@ import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.output.Output;
 import ru.job4j.ood.srp.store.Store;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 @Setter
@@ -33,17 +32,16 @@ public class AccountingDepartmentReport implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        output.append(List.of("Name;", "Hired;", "Fired;", "Salary;"));
+
+        List<Map<String, String>> prepared = new ArrayList<>();
         for (Employee employee : store.findBy(filter)) {
-            output.append(
-                    List.of(
-                            employee.getName(),
-                            dateTimeParser.parse(employee.getHired()),
-                            dateTimeParser.parse(employee.getFired()),
-                            String.valueOf(converter.convert(source, employee.getSalary(), target))
-                            )
-            );
+            Map<String, String> toAdd = new LinkedHashMap<>();
+            toAdd.put("Name;", employee.getName());
+            toAdd.put("Hired;", dateTimeParser.parse(employee.getHired()));
+            toAdd.put("Fired;", dateTimeParser.parse(employee.getFired()));
+            toAdd.put("Salary;", String.valueOf(converter.convert(source, employee.getSalary(), target)));
+            prepared.add(toAdd);
         }
-        return output.print();
+        return output.print(prepared);
     }
 }

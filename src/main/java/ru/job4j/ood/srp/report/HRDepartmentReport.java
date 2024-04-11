@@ -8,9 +8,7 @@ import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.output.Output;
 import ru.job4j.ood.srp.store.Store;
 
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 @Setter
@@ -28,17 +26,15 @@ public class HRDepartmentReport implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        output.append(List.of("Name;", "Salary;"));
         List<Employee> employees = store.findBy(filter);
         employees.sort(sort);
+        List<Map<String, String>> prepared = new ArrayList<>();
         for (Employee employee : employees) {
-            output.append(
-                    List.of(
-                            employee.getName(),
-                            String.valueOf(employee.getSalary())
-                            )
-            );
+            Map<String, String> toAdd = new LinkedHashMap<>();
+            toAdd.put("Name;", employee.getName());
+            toAdd.put("Salary;", String.valueOf(employee.getSalary()));
+            prepared.add(toAdd);
         }
-        return output.print();
+        return output.print(prepared);
     }
 }
